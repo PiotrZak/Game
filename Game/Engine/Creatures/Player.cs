@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Game.Engine.Creatures.Abstraction;
+using Game.Engine.Quest;
 
 namespace Game.Engine.Creatures
 {
@@ -24,10 +25,10 @@ namespace Game.Engine.Creatures
             Quests = new List<PlayerQuest>();
         }
 
-        private int Gold { get; set; }
-        private int ExperiencePoints { get; set; }
+        public int Gold { get; set; }
+        public int ExperiencePoints { get; set; }
         private int Level { get; set; }
-        
+        public Location CurrentLocation { get; set; }
         public List<QuestReward> Inventory { get; set; }
         public List<PlayerQuest> Quests { get; set; }
     }

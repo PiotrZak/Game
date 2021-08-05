@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Engine.Creatures;
 using Game.Engine.Item;
+using Game.Engine.Quest;
 
 namespace Game.Engine
 {

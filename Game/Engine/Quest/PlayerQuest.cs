@@ -2,8 +2,8 @@ namespace Game.Engine
 {
     public class PlayerQuest
     {
-        private Quest.Quest Details { get; set; }
-        private bool IsCompleted { get; set; }
+        public Quest.Quest Details { get; set; }
+        public bool IsCompleted { get; set; }
  
         public PlayerQuest(Quest.Quest details)
         {

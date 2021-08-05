@@ -5,8 +5,11 @@ namespace Game.Engine
     public class Location
     {
         public int Id { get; set; }
-        private string Name { get; set; }
-        private string Description { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        
+        public string AccessCode { get; set; }
+        public Item.Abstraction.Item RequiredKey { get; set; }
         
         public Location LocationToNorth { get; set; }
         public Location LocationToEast { get; set; }

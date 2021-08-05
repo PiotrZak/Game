@@ -9,6 +9,6 @@ namespace Game.Engine.Item.Abstraction
         }
 
         public int Id { get; set; }
-        private string Name { get; set; }
+        public string Name { get; set; }
     }
 }

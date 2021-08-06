@@ -68,9 +68,9 @@ namespace Game
             Console.WriteLine(newLocation.Name);
             Console.WriteLine(newLocation.Description);
 
-            var isAvailableQuestHere = Quest.CheckForQuestInNewLocation(newLocation);
-            // var isEnemyHere ?
-            
+            Quest.CheckForQuestInNewLocation(newLocation);
+            EnemyLocation.CheckForEnemy(newLocation);
+
         }
 
 

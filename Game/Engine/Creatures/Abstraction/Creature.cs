@@ -12,9 +12,9 @@ namespace Game.Engine.Creatures.Abstraction
         }
 
         public int Id { get; set; }
-        private string Name { get; set; }
-        private int Health { get; set; }
-        private int CurrentHitPoints { get; set; }
-        private int MaximumHitPoints { get; set; }
+        public string Name { get; set; }
+        public int Health { get; set; }
+        public int CurrentHitPoints { get; set; }
+        public int MaximumHitPoints { get; set; }
     }
 }

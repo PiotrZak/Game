@@ -12,9 +12,8 @@ namespace Game.Engine.Creatures
             RewardGold = rewardGold;
         }
 
-        private int RewardExperiencePoints { get; set; }
-        private int RewardGold { get; set; }
-        
+        public int RewardExperiencePoints { get; set; }
+        public int RewardGold { get; set; }
         public List<LootItem> LootTable { get; set; }
         
     }

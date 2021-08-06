@@ -99,34 +99,10 @@ namespace Game
             _player.ExperiencePoints += newLocation.QuestAvailableHere.RewardExperiencePoints;
             _player.Gold += newLocation.QuestAvailableHere.RewardGold;
             
-            // Add the reward item to the player's inventory
-            bool addedItemToPlayerInventory = false;
+            _player.AddItemToInventory(newLocation.QuestAvailableHere.RewardItem);
+            _player.MarkQuestCompleted(newLocation.QuestAvailableHere);
 
-            foreach (var i in _player.Inventory
-                .Where(i => i.Details.Id == newLocation.QuestAvailableHere.RewardItem.Id))
-            {
-                // They have the item in their inventory, so increase the quantity by one
-                i.Quantity++;
-                addedItemToPlayerInventory = true;
-                break;
-            }
-            // They didn't have the item, so add it to their inventory, with a quantity of 1
-            if(!addedItemToPlayerInventory)
-            {
-                _player.Inventory.Add(new QuestReward(newLocation.QuestAvailableHere.RewardItem, 1));
-            }
-            
-            foreach(PlayerQuest pq in _player.Quests)
-            {
-                if(pq.Details.Id == newLocation.QuestAvailableHere.Id)
-                {
-                    // Mark it as completed
-                    pq.IsCompleted = true;
 
-                    break;
-                }
-            }
-            
         }
     }
 }

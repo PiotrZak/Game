@@ -13,14 +13,13 @@ namespace Game
 
         public static void CheckForEnemy(Location newLocation)
         {
-            Enemy enemy;
             if (newLocation.EnemyLivingHere != null)
             {
                 Console.WriteLine("There is: " + newLocation.EnemyLivingHere.Name);
 
                 var enemyHere = World.EnemyById(newLocation.EnemyLivingHere.Id);
                 
-                enemy  = new Enemy(
+                var enemy = new Enemy(
                     enemyHere.Id,
                     enemyHere.Name,
                     enemyHere.Health,
@@ -33,17 +32,16 @@ namespace Game
                 {
                     enemyHere.LootTable.Add(lootItem);
                 }
+                var playerWeapons = 
+                    (from inventoryItem 
+                            in _player.Inventory 
+                        where inventoryItem.Details is Weapon 
+                        where inventoryItem.Quantity > 0 
+                        select (Weapon) inventoryItem.Details).ToList();
+                
+                //todo - what if player have more than 2 weapon - also distance and manual weapon
+                BattleLogic.StartFight(enemy, playerWeapons[0]);
             }
-            
-            var playerWeapons = 
-                (from inventoryItem 
-                    in _player.Inventory 
-                    where inventoryItem.Details is Weapon 
-                    where inventoryItem.Quantity > 0 
-                    select (Weapon) inventoryItem.Details).ToList();
-
-            //todo - what if player have more than 2 weapon - also distance and manual weapon
-            BattleLogic.StartFight(enemy, playerWeapons[0]);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Game.Engine
 {
     public class Location
     {
-        private Player _player;
+        private static Player _player;
         
         public int Id { get; set; }
         public string Name { get; set; }

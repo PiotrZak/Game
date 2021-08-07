@@ -25,42 +25,26 @@ namespace Game
         
         private void btnNorth_Click(object sender, EventArgs e)
         {
-            MoveTo(_player.CurrentLocation.LocationToNorth);
+            Location.MoveTo(_player.CurrentLocation.LocationToNorth);
         }
 
         private void btnEast_Click(object sender, EventArgs e)
         {
-            MoveTo(_player.CurrentLocation.LocationToEast);
+            Location.MoveTo(_player.CurrentLocation.LocationToEast);
         }
 
         private void btnSouth_Click(object sender, EventArgs e)
         {
-            MoveTo(_player.CurrentLocation.LocationToSouth);
+            Location.MoveTo(_player.CurrentLocation.LocationToSouth);
         }
 
         private void btnWest_Click(object sender, EventArgs e)
         {
-            MoveTo(_player.CurrentLocation.LocationToWest);
+            Location.MoveTo(_player.CurrentLocation.LocationToWest);
         }
 
-        private void MoveTo(Location newLocation)
+        public void Start(Location newLocation)
         {
-            if (newLocation.AccessCode != null)
-            {
-                //todo - implement AccessCode mechanism also protection level, based on experience
-            }
-
-            if (newLocation.RequiredKey != null)
-            {
-                var playerHasKey = _player.Inventory.Cast<Item>().Any(key => key.Id == newLocation.RequiredKey.Id);
-
-                if (!playerHasKey)
-                {
-                    //todo - configure writeln to RichTextBox if graphical
-                    Console.WriteLine("Must have a " + newLocation.RequiredKey.Name + " to enter this location." + Environment.NewLine);
-                    return;
-                }
-            }
 
             _player.CurrentLocation = newLocation;
             HideImpossibleMoves(newLocation);

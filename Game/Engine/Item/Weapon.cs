@@ -8,7 +8,12 @@ namespace Game.Engine.Item
             MaximumDamage = maximumDamage;
         }
 
-        private int MinimumDamage { get; set; }
-        private int MaximumDamage { get; set; }
+        public int MinimumDamage { get; set; }
+        public int MaximumDamage { get; set; }
+
+        public object this[int i]
+        {
+            get { throw new System.NotImplementedException(); }
+        }
     }
 }

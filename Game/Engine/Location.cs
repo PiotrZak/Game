@@ -1,9 +1,13 @@
+using System;
+using System.Linq;
 using Game.Engine.Creatures;
 
 namespace Game.Engine
 {
     public class Location
     {
+        private Player _player;
+        
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -34,6 +38,27 @@ namespace Game.Engine
             ItemRequiredToEnter = itemRequiredToEnter;
             QuestAvailableHere = questAvailableHere;
             EnemyLivingHere = monsterLivingHere;
+        }
+        
+        public static void MoveTo(Location newLocation)
+        {
+            if (newLocation.AccessCode != null)
+            {
+                //todo - implement AccessCode mechanism also protection level, based on experience
+            }
+
+            if (newLocation.RequiredKey != null)
+            {
+                var playerHasKey = _player.Inventory.Cast<Item.Abstraction.Item>().Any(key => key.Id == newLocation.RequiredKey.Id);
+
+                if (!playerHasKey)
+                {
+                    //todo - configure writeln to RichTextBox if graphical
+                    Console.WriteLine("Must have a " + newLocation.RequiredKey.Name + " to enter this location." + Environment.NewLine);
+                    return;
+                }
+            }
+            
         }
     }
 }

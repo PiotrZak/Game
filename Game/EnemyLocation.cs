@@ -4,6 +4,7 @@ using System.Linq;
 using Game.Engine;
 using Game.Engine.Creatures;
 using Game.Engine.Item;
+using Game.Engine.Quest;
 
 namespace Game
 {
@@ -32,13 +33,17 @@ namespace Game
                 {
                     enemyHere.LootTable.Add(lootItem);
                 }
-                var playerWeapons = 
-                    (from inventoryItem 
-                            in _player.Inventory 
-                        where inventoryItem.Details is Weapon 
-                        where inventoryItem.Quantity > 0 
-                        select (Weapon) inventoryItem.Details).ToList();
-                
+
+                var playerWeapons = new List<ItemState>();
+                foreach (var inventoryItem in _player.Inventory)
+                {
+                    //todo - get selected weapon or get the strongest one
+                    if (inventoryItem.MaximumDamage != null && inventoryItem.MinimumDamage != null)
+                    {
+                        if (inventoryItem.Quantity > 0) playerWeapons.Add(inventoryItem);
+                    }
+                }
+
                 //todo - what if player have more than 2 weapon - also distance and manual weapon
                 BattleLogic.StartFight(enemy, playerWeapons[0]);
             }

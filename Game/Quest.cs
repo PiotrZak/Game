@@ -86,7 +86,7 @@ namespace Game
 
         private static void StartQuest(Location newLocation)
         {
-            foreach(QuestReward qci in newLocation.QuestAvailableHere.QuestCompletionItems)
+            foreach(ItemState qci in newLocation.QuestAvailableHere.QuestCompletionItems)
             {
                 foreach (var j in _player.Inventory
                     .Where(j => j.Details.Id == qci.Details.Id))
@@ -101,8 +101,6 @@ namespace Game
             
             _player.AddItemToInventory(newLocation.QuestAvailableHere.RewardItem);
             _player.MarkQuestCompleted(newLocation.QuestAvailableHere);
-
-
         }
     }
 }

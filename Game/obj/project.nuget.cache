@@ -1,8 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "eLvh0zVKVSYACGarWDcsTAKSCvMWL/qORgIOPWYGrc2+kY5rind1cxDyJLvg3KhnrCiWw6hrbVM2uFy0wprFzQ==",
+  "dgSpecHash": "Z9Y1hqSHB/KVffAvJrVjVlhnA7mwfL4EdH+eNn9WpqJHKMHyY0NaduB198WPILFuu+7NYzkI2P4L41ODR/tQTg==",
   "success": true,
   "projectFilePath": "/Users/admin/Desktop/Game/Game/Game/Game.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/admin/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "/Users/admin/.nuget/packages/netstandard.library/2.0.0/netstandard.library.2.0.0.nupkg.sha512",
+    "/Users/admin/.nuget/packages/nunit/3.13.2/nunit.3.13.2.nupkg.sha512",
+    "/Users/admin/.nuget/packages/xunit/2.4.1/xunit.2.4.1.nupkg.sha512",
+    "/Users/admin/.nuget/packages/xunit.abstractions/2.0.3/xunit.abstractions.2.0.3.nupkg.sha512",
+    "/Users/admin/.nuget/packages/xunit.analyzers/0.10.0/xunit.analyzers.0.10.0.nupkg.sha512",
+    "/Users/admin/.nuget/packages/xunit.assert/2.4.1/xunit.assert.2.4.1.nupkg.sha512",
+    "/Users/admin/.nuget/packages/xunit.core/2.4.1/xunit.core.2.4.1.nupkg.sha512",
+    "/Users/admin/.nuget/packages/xunit.extensibility.core/2.4.1/xunit.extensibility.core.2.4.1.nupkg.sha512",
+    "/Users/admin/.nuget/packages/xunit.extensibility.execution/2.4.1/xunit.extensibility.execution.2.4.1.nupkg.sha512"
+  ],
   "logs": []
 }

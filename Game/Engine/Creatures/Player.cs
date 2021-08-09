@@ -7,6 +7,7 @@ namespace Game.Engine.Creatures
 {
     public class Player : Creature
     {
+        //todo - implement runes and magic level
         protected internal Player(
             int gold, 
             int experiencePoints, 
@@ -22,9 +23,11 @@ namespace Game.Engine.Creatures
             Gold = gold;
             ExperiencePoints = experiencePoints;
             Level = level;
-            Inventory = new List<QuestReward>();
+            Inventory = new List<ItemState>();
             Quests = new List<PlayerQuest>();
         }
+        
+        
 
         public bool HasKeyToEnterLocation(Location location)
         {
@@ -52,7 +55,7 @@ namespace Game.Engine.Creatures
                 return;
             }
 
-            Inventory.Add(new QuestReward(itemToAdd, 1));
+            Inventory.Add(new ItemState(itemToAdd, 1));
         }
 
         public void MarkQuestCompleted(Quest.Quest quest)
@@ -66,10 +69,15 @@ namespace Game.Engine.Creatures
         
         public int Gold { get; set; }
         public int ExperiencePoints { get; set; }
-        private int Level { get; set; }
+        private int Level
+        {
+            get => ((ExperiencePoints / 100) + 1);
+            set => throw new System.NotImplementedException();
+        }
+
         public Location CurrentLocation { get; set; }
-        public List<QuestReward> Inventory { get; set; }
-        public List<PlayerQuest> Quests { get; set; }
+        public List<ItemState> Inventory { get; set; }
+        public List<PlayerQuest> Quests { get; private set; }
     }
     
 }

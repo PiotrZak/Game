@@ -3,28 +3,25 @@ using System;
 using Game.Engine;
 using Game.Engine.Creatures;
 using Game.Engine.Item;
+using Game.Engine.Quest;
 
 namespace Game
 {
     public class BattleLogic
     {
-
         private static Player _player;
-        private readonly Enemy _currentEnemy;
 
-        public BattleLogic(Player player, Enemy currentEnemy)
+        public BattleLogic(Player player)
         {
             _player = player;
-            _currentEnemy = currentEnemy;
         }
 
-        public static void StartFight(Enemy enemy, Weapon playerWeapons, object? sender = null, EventArgs? e = null)
+        public static void StartFight(Enemy enemy, ItemState playerWeapons, object? sender = null, EventArgs? e = null)
         {
-            //todo - precise which weapon is seleected 
             var currentWeapon = playerWeapons;
             
             var random = new Random();
-            var dmg = random.Next(currentWeapon.MinimumDamage, currentWeapon.MaximumDamage);
+            var dmg = random.Next((int) currentWeapon.MinimumDamage, (int) currentWeapon.MaximumDamage);
             
             enemy.CurrentHitPoints -= dmg;
             enemy.Health -= dmg;
@@ -45,12 +42,24 @@ namespace Game
                 var random = new Random();
                 var dmg = random.Next(0, enemy.MaximumHitPoints);
 
-                _player.Health -= dmg;
+                
+                //there is only Talisman and Key as defense items
+                //to refactor
+                var playerArmor = _player.Inventory
+                    .Find(x => x.Details.Id == World.ItemIdTalisman 
+                               || x.Details.Id == World.ItemIdKey);
+                
+                var defense = random.Next(
+                    (int) playerArmor.MinimumDefense, 
+                    (int) playerArmor.MaximumDefense
+                    );
+
+                _player.Health -= (dmg-defense);
 
                 if (_player.Health <= 0)
                 {
-                    Console.WriteLine("You are dead");
-                    Location.MoveTo(World.LocationById(World.LocationBridge));
+                    GameLoop.Restart();
+                    Location.MoveTo(World.LocationById(World.LocationMachinery));
                 }
             }
         }

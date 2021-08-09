@@ -7,7 +7,6 @@ namespace Game.Engine
     public class Location
     {
         private static Player _player;
-        
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

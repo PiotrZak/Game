@@ -1,3 +1,5 @@
+using Game.Engine.Quest;
+
 namespace Game.Engine.Item
 {
     public class LootItem

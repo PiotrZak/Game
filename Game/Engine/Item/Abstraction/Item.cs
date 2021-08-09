@@ -1,8 +1,8 @@
 namespace Game.Engine.Item.Abstraction
 {
-    public abstract class Item
+    public class Item
     {
-        protected Item(int id, string name)
+        public Item(int id, string name)
         {
             Id = id;
             Name = name;

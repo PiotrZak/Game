@@ -8,7 +8,9 @@ namespace Game.Engine
 {
     public static class World
     {
-        public static readonly List<Item.Abstraction.Item> Items = new List<Item.Abstraction.Item>();
+        public static readonly List<ItemState> Items = new List<ItemState>();
+        public static readonly List<Item.Abstraction.Item> Item = new List<Item.Abstraction.Item>();
+        
         public static readonly List<Enemy> Enemies = new List<Enemy>();
         public static readonly List<Quest.Quest> Quests = new List<Quest.Quest>();
         public static readonly List<Location> Locations = new List<Location>();
@@ -19,7 +21,6 @@ namespace Game.Engine
         
         public const int QuestIdMachinery = 1;
         public const int QuestIdSpaceship = 2;
-
         
         public const int FriendId = 1;
         public const int EnemyParamourId = 2;
@@ -82,7 +83,7 @@ namespace Game.Engine
                     "Mission I",
                     "Make a research about spaceship and explore the room", 20, 10);
 
-            spaceShipQuest.QuestCompletionItems.Add(new QuestReward(ItemById(ItemIdBook), 3));
+            spaceShipQuest.QuestCompletionItems.Add(new ItemState(ItemById(ItemIdBook), 3));
             spaceShipQuest.RewardItem = ItemById(ItemIdBook);
 
             var machineryQuest =
@@ -91,7 +92,8 @@ namespace Game.Engine
                     "Mission II",
                     "Check all available machines to work property.", 20, 20);
 
-            machineryQuest.QuestCompletionItems.Add(new QuestReward(ItemById(EnemyParamourId), 3));
+            machineryQuest.QuestCompletionItems.Add(new ItemState(ItemById(EnemyParamourId), 3));
+            
             machineryQuest.RewardItem = ItemById(ItemIdTalisman);
 
             Quests.Add(machineryQuest);
@@ -103,7 +105,7 @@ namespace Game.Engine
             var friend = new Enemy(FriendId, "Dragon", 1600, 200, 200, 40, 120);
             var paramour = new Enemy(EnemyParamourId,  "Paramour", 3200, 800, 500, 70, 180);
             var renegade = new Enemy(EnemyRenegade, "Renegade", 4800, 1200, 1200, 120, 400);
-
+            
             friend.LootTable.Add((new LootItem(ItemById(ItemIdBook), 20, false)));
             paramour.LootTable.Add((new LootItem(ItemById(ItemIdTalisman), 20, false)));
             renegade.LootTable.Add((new LootItem(ItemById(ItemIdKey), 20, false)));
@@ -116,15 +118,16 @@ namespace Game.Engine
 
         private static void PopulateItems()
         {
-            Items.Add(new Weapon(ItemIdBook, "Dragon Sword", 10, 50));
-            Items.Add(new Armor(ItemIdTalisman,  "Paramour Talisman", 5, 10));
-            Items.Add(new Armor(ItemIdKey, "Renegade key", 15, 25));
+            
+            Items.Add(new ItemState(new Item.Abstraction.Item(ItemIdBook, "Book"), 1, 10, 50));
+            Items.Add(new ItemState(new Item.Abstraction.Item(ItemIdTalisman,  "Paramour Talisman"), 1, null, 10, 20));
+            Items.Add(new ItemState(new Item.Abstraction.Item(ItemIdKey, "Renegade key"), 1, 25));
         }
         
 
         public static Item.Abstraction.Item ItemById(int id)
         {
-            return Items.FirstOrDefault(item => item.Id == id);
+            return Item.FirstOrDefault(item => item.Id == id);
         }
         
         public static Enemy EnemyById(int id)

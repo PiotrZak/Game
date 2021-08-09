@@ -22,3 +22,6 @@
 /Users/admin/Desktop/Game/Game/Game/obj/Debug/net5.0/Game.dll
 /Users/admin/Desktop/Game/Game/Game/obj/Debug/net5.0/ref/Game.dll
 /Users/admin/Desktop/Game/Game/Game/obj/Debug/net5.0/Game.pdb
+/Users/admin/Desktop/Game/Game/Game/bin/Debug/net5.0/Game.runtimeconfig.json
+/Users/admin/Desktop/Game/Game/Game/bin/Debug/net5.0/Game.runtimeconfig.dev.json
+/Users/admin/Desktop/Game/Game/Game/obj/Debug/net5.0/Game.genruntimeconfig.cache

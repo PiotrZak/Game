@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Collections.Generic;
 using Game.Engine;
 using Game.Engine.Creatures;
 using Game.Engine.Item;
@@ -16,52 +17,64 @@ namespace Game
             _player = player;
         }
 
-        public static void StartFight(Enemy enemy, ItemState playerWeapons, object? sender = null, EventArgs? e = null)
+        public static void StartFight(Enemy enemy, object? sender = null, EventArgs? e = null)
         {
-            var currentWeapon = playerWeapons;
             
+            var playerWeapons = new List<ItemState>();
+            foreach (var inventoryItem in _player.Inventory)
+            {
+                //todo - get selected weapon or get the strongest one
+                if (inventoryItem.MaximumDamage != null && inventoryItem.MinimumDamage != null)
+                {
+                    if (inventoryItem.Quantity > 0) playerWeapons.Add(inventoryItem);
+                }
+            }
+
             var random = new Random();
-            var dmg = random.Next((int) currentWeapon.MinimumDamage, (int) currentWeapon.MaximumDamage);
-            
-            enemy.CurrentHitPoints -= dmg;
-            enemy.Health -= dmg;
+            var playerDmg = random.Next((int) playerWeapons[0].MinimumDamage, (int) playerWeapons[0].MaximumDamage);
+            var enemyDmg = random.Next((int) enemy.CurrentHitPoints, (int) enemy.MaximumHitPoints);
 
-            isEnemyDead(enemy);
-        }
+            while (enemy.Health <= 0 || _player.Health <= 0)
+            {
+                HitToEnemy(playerDmg, enemy);
+                HitToPlayer(enemyDmg, _player);
+            }
 
-        private static void isEnemyDead(Enemy enemy)
-        {
             if (enemy.Health <= 0)
             {
                 Console.WriteLine("You defeated the" + enemy.Name);
                 _player.ExperiencePoints += enemy.RewardExperiencePoints;
                 _player.Gold += enemy.RewardGold;
             }
-            else
+            if (_player.Health <= 0)
             {
-                var random = new Random();
-                var dmg = random.Next(0, enemy.MaximumHitPoints);
-
-                
-                //there is only Talisman and Key as defense items
-                //to refactor
-                var playerArmor = _player.Inventory
-                    .Find(x => x.Details.Id == World.ItemIdTalisman 
-                               || x.Details.Id == World.ItemIdKey);
-                
-                var defense = random.Next(
-                    (int) playerArmor.MinimumDefense, 
-                    (int) playerArmor.MaximumDefense
-                    );
-
-                _player.Health -= (dmg-defense);
-
-                if (_player.Health <= 0)
-                {
-                    GameLoop.Restart();
-                    Location.MoveTo(World.LocationById(World.LocationMachinery));
-                }
+                GameLoop.Restart();
             }
+        }
+        
+        public static Enemy HitToEnemy(int dmg, Enemy creature)
+        {
+            creature.CurrentHitPoints -= dmg;
+            creature.Health -= dmg;
+            return creature;
+        }
+        
+        public static Player HitToPlayer(int dmg, Player creature)
+        {
+            creature.CurrentHitPoints -= dmg;
+            creature.Health -= dmg;
+            var playerArmor = _player.Inventory
+                .Find(x => x.Details.Id == World.ItemIdTalisman 
+                           || x.Details.Id == World.ItemIdKey);
+            var random = new Random();
+            var defense = random.Next(
+                (int) playerArmor.MinimumDefense, 
+                (int) playerArmor.MaximumDefense
+            );
+
+            _player.Health -= (dmg-defense);
+
+            return _player;
         }
     }
 }

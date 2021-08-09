@@ -33,19 +33,8 @@ namespace Game
                 {
                     enemyHere.LootTable.Add(lootItem);
                 }
-
-                var playerWeapons = new List<ItemState>();
-                foreach (var inventoryItem in _player.Inventory)
-                {
-                    //todo - get selected weapon or get the strongest one
-                    if (inventoryItem.MaximumDamage != null && inventoryItem.MinimumDamage != null)
-                    {
-                        if (inventoryItem.Quantity > 0) playerWeapons.Add(inventoryItem);
-                    }
-                }
-
-                //todo - what if player have more than 2 weapon - also distance and manual weapon
-                BattleLogic.StartFight(enemy, playerWeapons[0]);
+                
+                BattleLogic.StartFight(enemy);
             }
         }
     }

@@ -19,12 +19,12 @@ namespace Game.Engine
         
         public void DeclareWar(Nation nation)
         {
-            Alliances.Add(nation);
+            War.Add(nation);
         }
         
         public void MakeAnAlliance(Nation nation)
         {
-            War.Add(nation);
+            Alliances.Add(nation);
         }
     }
 

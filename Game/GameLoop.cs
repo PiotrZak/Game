@@ -9,8 +9,6 @@ namespace Game
     {
         public static Game _game;
         private static bool Running { get; set; }
-
-        
         
         public static async void Start()
         {

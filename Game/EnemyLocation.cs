@@ -34,7 +34,8 @@ namespace Game
                     enemyHere.LootTable.Add(lootItem);
                 }
                 
-                BattleLogic.StartFight(enemy);
+                //the battle can be missed?
+                var isPlayerWin = BattleLogic.StartFight(enemy, _player);
             }
         }
     }

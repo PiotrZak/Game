@@ -120,7 +120,7 @@ namespace Game.Engine
         {
             
             Items.Add(new ItemState(new Item.Abstraction.Item(ItemIdBook, "Book"), 1, 10, 50));
-            Items.Add(new ItemState(new Item.Abstraction.Item(ItemIdTalisman,  "Paramour Talisman"), 1, null, 10, 20));
+            Items.Add(new ItemState(new Item.Abstraction.Item(ItemIdTalisman,  "Paramour Talisman"), 1, null, null, 50, 20));
             Items.Add(new ItemState(new Item.Abstraction.Item(ItemIdKey, "Renegade key"), 1, 25));
         }
         

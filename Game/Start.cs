@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Game.Engine;
 using Game.Engine.Creatures;
 
@@ -18,7 +17,24 @@ namespace Game
             Quest.CheckForQuestInNewLocation(newLocation);
             EnemyLocation.CheckForEnemy(newLocation);
 
+            switch (player.Level)
+            {
+                case 5:
+                    ChooseProffesion();
+                    break;
+                case 15:
+                    ChooseSpecialization();
+                    break;
+            }
         }
-        
+
+        private static void ChooseSpecialization()
+        {
+        }
+
+        private static void ChooseProffesion()
+        {
+
+        }
     }
 }

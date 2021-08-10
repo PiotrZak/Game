@@ -1,27 +1,20 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.Engine;
 using Game.Engine.Creatures;
-using Game.Engine.Item;
 using Game.Engine.Quest;
 
 namespace Game
 {
     public class BattleLogic
     {
-        private static Player _player;
-
-        public BattleLogic(Player player)
-        {
-            _player = player;
-        }
-
-        public static void StartFight(Enemy enemy, object? sender = null, EventArgs? e = null)
+        public static bool StartFight(Enemy enemy, Player player)
         {
             
             var playerWeapons = new List<ItemState>();
-            foreach (var inventoryItem in _player.Inventory)
+            foreach (var inventoryItem in player.Inventory)
             {
                 //todo - get selected weapon or get the strongest one
                 if (inventoryItem.MaximumDamage != null && inventoryItem.MinimumDamage != null)
@@ -31,25 +24,33 @@ namespace Game
             }
 
             var random = new Random();
-            var playerDmg = random.Next((int) playerWeapons[0].MinimumDamage, (int) playerWeapons[0].MaximumDamage);
+
+            var playerDmg = playerWeapons.Any() 
+                ? random.Next((int) playerWeapons[0].MinimumDamage, (int) playerWeapons[0].MaximumDamage) 
+                : random.Next(player.CurrentHitPoints, player.MaximumHitPoints);
+      
             var enemyDmg = random.Next((int) enemy.CurrentHitPoints, (int) enemy.MaximumHitPoints);
 
-            while (enemy.Health <= 0 || _player.Health <= 0)
+            while (!(enemy.Health <= 0) && !(player.Health <= 0))
             {
                 HitToEnemy(playerDmg, enemy);
-                HitToPlayer(enemyDmg, _player);
+                HitToPlayer(enemyDmg, player);
             }
 
             if (enemy.Health <= 0)
             {
                 Console.WriteLine("You defeated the" + enemy.Name);
-                _player.ExperiencePoints += enemy.RewardExperiencePoints;
-                _player.Gold += enemy.RewardGold;
+                player.ExperiencePoints += enemy.RewardExperiencePoints;
+                player.Gold += enemy.RewardGold;
+                return true;
             }
-            if (_player.Health <= 0)
+            if (player.Health <= 0)
             {
                 GameLoop.Restart();
+                return false;
             }
+
+            return true;
         }
         
         public static Enemy HitToEnemy(int dmg, Enemy creature)
@@ -63,18 +64,23 @@ namespace Game
         {
             creature.CurrentHitPoints -= dmg;
             creature.Health -= dmg;
-            var playerArmor = _player.Inventory
+            var playerArmor = creature.Inventory
                 .Find(x => x.Details.Id == World.ItemIdTalisman 
                            || x.Details.Id == World.ItemIdKey);
             var random = new Random();
-            var defense = random.Next(
-                (int) playerArmor.MinimumDefense, 
-                (int) playerArmor.MaximumDefense
-            );
 
-            _player.Health -= (dmg-defense);
+            var defense = 0;
+            if (playerArmor != null)
+            {
+                defense = random.Next(
+                    (int) playerArmor.MinimumDefense,
+                    (int) playerArmor.MaximumDefense
+                );
+            }
 
-            return _player;
+            creature.Health -= (dmg-defense);
+
+            return creature;
         }
     }
 }

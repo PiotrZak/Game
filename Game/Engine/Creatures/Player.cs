@@ -7,7 +7,6 @@ namespace Game.Engine.Creatures
 {
     public class Player : Creature
     {
-        //todo - implement runes and magic level
         protected internal Player(
             int gold, 
             int experiencePoints, 
@@ -69,15 +68,18 @@ namespace Game.Engine.Creatures
         
         public int Gold { get; set; }
         public int ExperiencePoints { get; set; }
-        private int Level
+        private int _level;
+        
+        public int Level
         {
             get => ((ExperiencePoints / 100) + 1);
-            set => throw new System.NotImplementedException();
+            set => _level = value;
         }
-
+        
+        public Proffesion? Class { get; set; }
+        public Specialization? Specialization { get; set; }
         public Location CurrentLocation { get; set; }
         public List<ItemState> Inventory { get; set; }
         public List<PlayerQuest> Quests { get; private set; }
     }
-    
 }

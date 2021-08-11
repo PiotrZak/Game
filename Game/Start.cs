@@ -14,6 +14,8 @@ namespace Game
             Console.WriteLine(newLocation.Name);
             Console.WriteLine(newLocation.Description);
 
+            var map = CosmosLocation.GenerateMap();
+
             Quest.CheckForQuestInNewLocation(newLocation);
             EnemyLocation.CheckForEnemy(newLocation);
 

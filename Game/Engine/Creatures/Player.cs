@@ -66,10 +66,10 @@ namespace Game.Engine.Creatures
             }
         }
         
+        public int Charisma; 
         public int Gold { get; set; }
         public int ExperiencePoints { get; set; }
         private int _level;
-        
         public int Level
         {
             get => ((ExperiencePoints / 100) + 1);

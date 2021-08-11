@@ -3,7 +3,7 @@ using Game.Engine.Creatures;
 
 namespace Game.Engine
 {
-    public class Fleet_
+    public class Fleet
     {
         public Player General { get; set; }
         
@@ -12,6 +12,8 @@ namespace Game.Engine
         public string Formation;
 
         public string StrategyObjective;
+        
+        public List<Spaceship> Spaceships { get; set; }
         
         private List<Nation> Alliances;
 

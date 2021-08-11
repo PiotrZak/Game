@@ -10,7 +10,6 @@ namespace Game.Tests
         public void MapHave100Points()
         {
             var map = CosmosLocation.GenerateMap();
-
             Assert.Equal(100, map.Location.Count);
         }
         

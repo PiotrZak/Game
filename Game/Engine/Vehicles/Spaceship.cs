@@ -6,8 +6,29 @@ namespace Game.Engine
     //todo - abstract class of different models of spaceships
     public class Spaceship
     {
-        public string Nation { get; set; }
-        public string Model { get; set; }
+        public Spaceship(
+            Nation nation, 
+            SpaceshipType model, 
+            int fuel, 
+            int protectiveField,
+            int health,
+            int shootAccuracy,
+            int maxCrewSize,
+            int speed
+        )
+        {
+            Nation = nation;
+            Model = model;
+            Fuel = fuel;
+            ProtectiveField = protectiveField;
+            Health = health;
+            ShootAccuracy = shootAccuracy;
+            MaxCrewSize = maxCrewSize;
+            Speed = speed;
+        }
+
+        public Nation Nation { get; set; }
+        public SpaceshipType Model { get; set; }
         public int Fuel { get; set; }
         public int Damage { get; set; }
         public int ProtectiveField { get; set; }

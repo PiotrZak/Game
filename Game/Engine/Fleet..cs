@@ -29,9 +29,4 @@ namespace Game.Engine
             Alliances.Add(nation);
         }
     }
-
-    public class Nation
-    {
-        public string Name;
-    }
 }

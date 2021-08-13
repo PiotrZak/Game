@@ -56,16 +56,16 @@ namespace Game.Engine
         public static int CalculatePossibleQuantityBuild(List<int> demandsOfMaterials, int[] actualState)
         {
             int possibleQuantity = 0;
-
             do
             {
                 var oneUnit = IsDemandFullfill(demandsOfMaterials, actualState);
                 if (oneUnit)
                 {
                     possibleQuantity++;
-                    actualState[0] -= demandsOfMaterials[0];
-                    actualState[1] -= demandsOfMaterials[1];
-                    actualState[2] -= demandsOfMaterials[2];
+                    foreach(var i in actualState.Select((value, index) => new { index, value }))
+                    {
+                        actualState[i.index] -= demandsOfMaterials[i.index];
+                    }
                 }
             } while (!IsDemandFullfill(demandsOfMaterials, actualState) == false);
             

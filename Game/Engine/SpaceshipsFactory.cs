@@ -16,7 +16,7 @@ namespace Game.Engine
     public class SpaceshipsFactory
     {
 
-        public List<Spaceship> BuildSpaceship(Nation builder, SpaceshipType typeToBuild, decimal quantity)
+        public static List<Spaceship> BuildSpaceship(Nation builder, SpaceshipType typeToBuild, int quantity)
         {
 
             var chaserCost = new[] {4000, 2000, 1000};
@@ -33,7 +33,7 @@ namespace Game.Engine
                 var availableRocketPopulsion = builder.RocketPropulsion;
 
                 var actualState = new[] {availableSteel, availableAluminium, availableRocketPopulsion};
-                var demandsOfMaterials = chaserCost.Select(x => x * quantity);
+                var demandsOfMaterials = chaserCost.Select(x => x * quantity).ToList();
 
                 var isPossible = IsDemandFullfill(demandsOfMaterials, actualState);
 
@@ -47,49 +47,58 @@ namespace Game.Engine
                 }
                 else
                 {
-                    CalculatePossibleQuantityBuild(demandsOfMaterials, actualState, quantity);
+                    CalculatePossibleQuantityBuild(demandsOfMaterials, actualState);
                 }
             }
             return spaceShips;
         }
 
-        private int CalculatePossibleQuantityBuild(IEnumerable<decimal> demandsOfMaterials, decimal[] actualState, in decimal quantity)
+        public static int CalculatePossibleQuantityBuild(List<int> demandsOfMaterials, int[] actualState)
         {
             int possibleQuantity = 0;
-            var ofMaterials = demandsOfMaterials.ToList();
-            
-            while (IsDemandFullfill(ofMaterials, actualState) == false)
+
+            do
             {
-                var oneUnit = IsDemandFullfill(ofMaterials, actualState);
-                if (oneUnit == true)
+                var oneUnit = IsDemandFullfill(demandsOfMaterials, actualState);
+                if (oneUnit)
                 {
                     possibleQuantity++;
-                    actualState[0] -= ofMaterials[0];
-                    actualState[1] -= ofMaterials[1];
-                    actualState[2] -= ofMaterials[2];
+                    actualState[0] -= demandsOfMaterials[0];
+                    actualState[1] -= demandsOfMaterials[1];
+                    actualState[2] -= demandsOfMaterials[2];
                 }
-            }
+            } while (!IsDemandFullfill(demandsOfMaterials, actualState) == false);
+            
             return possibleQuantity;
         }
 
-        public bool IsDemandFullfill(IEnumerable<decimal> cost, decimal[] actualState)
+        public static bool IsDemandFullfill(List<int> cost, int[] actualState)
         {
-            var enumerable = cost.ToList();
-            if (actualState[0] < enumerable[0] ||
-                actualState[1] < enumerable[1] ||
-                actualState[2] < enumerable[2]
-            )
+            if (actualState[0] >= cost[0])
             {
-                var exception = new Exception("Nation have not enough materials");
-                return false;
+                if (actualState[1] >= cost[1])
+                {
+                    if (actualState[2] >= cost[2])
+                    {
+                        return true;
+                    }
+                }
             }
-
-            return true;
+            return false;
         }
         
-        public void RecruitTheCrew()
+        public static List<int> CalculateLackOfDemands(List<int> cost, int[] actualState)
         {
-            
+            var lackResources = new List<int>();
+            foreach(var i in actualState.Select((value, index) => new { index, value }))
+            {
+                if (actualState[i.index] <= cost[i.index])
+                {
+                    var diff = cost[i.index] - actualState[i.index];
+                    lackResources.Add(diff);
+                }
+            }
+            return lackResources;
         }
     }
 }

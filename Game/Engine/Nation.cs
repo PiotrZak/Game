@@ -8,10 +8,10 @@ namespace Game.Engine
 
         public decimal Gold { get; set; }
 
-        public decimal Steel { get; set; }
+        public int Steel { get; set; }
 
-        public decimal RocketPropulsion { get; set; }
+        public int RocketPropulsion { get; set; }
         
-        public decimal Aluminium { get; set; }
+        public int Aluminium { get; set; }
     }
 }

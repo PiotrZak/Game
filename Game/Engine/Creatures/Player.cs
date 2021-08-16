@@ -65,7 +65,8 @@ namespace Game.Engine.Creatures
                 return;
             }
         }
-        
+
+        public int Id;
         public int Charisma; 
         public int Gold { get; set; }
         public int ExperiencePoints { get; set; }

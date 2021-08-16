@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -26,32 +27,49 @@ namespace Game.Engine
 
             var spaceShips = new List<Spaceship>();
 
-            if (typeToBuild == SpaceshipType.Chaser)
+
+            foreach (SpaceshipType spaceshipType in SpaceshipType)
             {
-                var availableSteel = builder.Steel;
-                var availableAluminium = builder.Aluminium;
-                var availableRocketPopulsion = builder.RocketPropulsion;
-
-                var actualState = new[] {availableSteel, availableAluminium, availableRocketPopulsion};
-                var demandsOfMaterials = chaserCost.Select(x => x * quantity).ToList();
-
-                var isPossible = IsDemandFullfill(demandsOfMaterials, actualState);
-
-                if (isPossible)
+                if (typeToBuild == spaceshipType)
                 {
-                    for(var i = 0; i < quantity; i++)
+                    var availableSteel = builder.Steel;
+                    var availableAluminium = builder.Aluminium;
+                    var availableRocketPopulsion = builder.RocketPropulsion;
+                    
+                    var actualState = new[] {availableSteel, availableAluminium, availableRocketPopulsion};
+                    var demandsOfMaterials = typeToBuild switch
                     {
-                        var chaser = new Spaceship(builder, SpaceshipType.Chaser, 100, 20 ,1200, 60, 5, 120 );   
-                        spaceShips.Add(chaser);
+                        Engine.SpaceshipType.Chaser => chaserCost.Select(x => x * quantity).ToList(),
+                        Engine.SpaceshipType.Shuttle => shuttleCost.Select(x => x * quantity).ToList(),
+                        Engine.SpaceshipType.Destroyer => destroyerCost.Select(x => x * quantity).ToList(),
+                        Engine.SpaceshipType.Dreadnought => dreadnoughtCost.Select(x => x * quantity).ToList(),
+                        _ => throw new ArgumentOutOfRangeException(nameof(typeToBuild), typeToBuild, null)
+                    };
+                    
+                    var isPossible = IsDemandFullfill(demandsOfMaterials, actualState);
+                    if (isPossible)
+                    {
+                        for(var i = 0; i < quantity; i++)
+                        {
+                            var chaser = new Spaceship(builder, spaceshipType, 100, 20 ,1200, 60, 5, 120 );   
+                            spaceShips.Add(chaser);
+                        }
+                    }
+                    else
+                    {
+                        CalculatePossibleQuantityBuild(demandsOfMaterials, actualState);
+                        //produce less or not?
                     }
                 }
                 else
                 {
-                    CalculatePossibleQuantityBuild(demandsOfMaterials, actualState);
+                    break;
                 }
             }
             return spaceShips;
         }
+
+        public static IEnumerable SpaceshipType { get; set; }
 
         public static int CalculatePossibleQuantityBuild(List<int> demandsOfMaterials, int[] actualState)
         {
@@ -74,17 +92,9 @@ namespace Game.Engine
 
         public static bool IsDemandFullfill(List<int> cost, int[] actualState)
         {
-            if (actualState[0] >= cost[0])
-            {
-                if (actualState[1] >= cost[1])
-                {
-                    if (actualState[2] >= cost[2])
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
+            if (actualState[0] < cost[0]) return false;
+            if (actualState[1] < cost[1]) return false;
+            return actualState[2] >= cost[2];
         }
         
         public static List<int> CalculateLackOfDemands(List<int> cost, int[] actualState)

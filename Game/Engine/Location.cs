@@ -17,12 +17,13 @@ namespace Game.Engine
         public Location LocationToNorth { get; set; }
         public Location LocationToEast { get; set; }
         public Location LocationToSouth { get; set; }
-        public Location LocationToWest { get; set; }
+        public Location LocationeToWest { get; set; }
 
         private Item.Abstraction.Item ItemRequiredToEnter { get; set; }
         public Quest.Quest QuestAvailableHere { get; set; }
         public Enemy EnemyLivingHere { get; set; }
-        
+        public Location LocationToWest { get; set; }
+
         public Location(
             int id,
             string name,

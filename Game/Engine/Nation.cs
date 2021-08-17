@@ -14,6 +14,8 @@ namespace Game.Engine
         public List<Nation> Alliances { get; set; }
         public List<Nation> Enemies { get; set; }
         
+        public List<Fleet> Fleets { get; set; }
+        
         public void DeclareWar(Nation nation)
         {
             Enemies.Add(nation);

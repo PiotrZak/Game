@@ -89,7 +89,7 @@ namespace Game.Engine
         
             //only right for now
             
-            // check if the fields allow another fields - if yes than start battle
+            // check if the fields allow another spaceships - if yes than start battle
             if (fromY + toY >= 10)
             {
                 return false;

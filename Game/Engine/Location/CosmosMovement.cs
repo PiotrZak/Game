@@ -88,6 +88,8 @@ namespace Game.Engine
             var toY = postulatedFleetPosition.Y;
         
             //only right for now
+            
+            // check if the fields allow another fields - if yes than start battle
             if (fromY + toY >= 10)
             {
                 return false;

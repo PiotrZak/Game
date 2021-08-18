@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data.Common;
 using Game.Engine.Creatures;
 
 namespace Game.Engine
@@ -21,6 +22,7 @@ namespace Game.Engine
     public class Fleet
     {
         public Fleet(
+            int id,
             Nation nation, 
             Player general,
             List<Player> captains,
@@ -29,6 +31,7 @@ namespace Game.Engine
             List<Spaceship> spaceships
         )
         {
+            Id = id;
             Nation = nation;
             General = general;
             Captains = captains;
@@ -37,6 +40,7 @@ namespace Game.Engine
             Spaceships = spaceships;
         }
         
+        public int Id { get; set; }
         public Nation Nation { get; set; }
         public Player General { get; set; }
         public List<Player> Captains { get; set; }

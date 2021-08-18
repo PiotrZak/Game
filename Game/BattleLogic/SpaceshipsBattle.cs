@@ -8,7 +8,9 @@ namespace Game
 
         public class StartBattle
         {
-            public List<Spaceship> StartBattle(Spaceship a, Spaceship b)
+            
+            //return result - todo - precise that result with running and mediation consideration
+            public Spaceship StartSpaceshipsBattle(Spaceship a, Spaceship b)
             {
                 while (!(a.Health <= 0) && !(b.Health <= 0))
                 {
@@ -29,6 +31,8 @@ namespace Game
                     }
                     
                 }
+
+                return a;
             }
 
             private static bool FlyAway(Spaceship runner, Spaceship attacker)

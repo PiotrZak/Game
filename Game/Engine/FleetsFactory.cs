@@ -17,7 +17,8 @@ namespace Game.Engine
             var general = PromoteGeneral(management);
             management.RemoveAll(x => x.Id == general.Id);
             
-            return new Fleet(nation, general, management, formation, strategyObjective, spaceships);
+            //todo - precise fleet and make tests
+            return new Fleet(1, nation, general, management, formation, strategyObjective, spaceships);
         }
 
         private static Formation DefineFormation(int spaceshipsCount)

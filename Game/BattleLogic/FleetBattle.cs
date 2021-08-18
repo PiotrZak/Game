@@ -29,7 +29,7 @@ namespace Game
             var meanOfAccuracyA = CalculateAccuracy(a.Spaceships);
             var probabilityResult = CalculateProbabilityOfFight(differenceInShips, differenceInCrew);
             
-            var battleOfUnit = new SpaceshipsBattle.StartBattle(a.Spaceships[0], b.Spaceships[0]);
+            //var battleOfUnit = new SpaceshipsBattle.StartBattle(a.Spaceships[0], b.Spaceships[0]);
         }
 
         private decimal CalculateAccuracy(IEnumerable<Spaceship> spaceships)

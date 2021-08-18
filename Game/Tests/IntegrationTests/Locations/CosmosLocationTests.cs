@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Game.Tests
 {
-    public class CosmosLocationTests
+    public partial class CosmosLocationTests
     {
         // 10x10 matrix
         [Fact]

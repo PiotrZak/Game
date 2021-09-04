@@ -5,7 +5,6 @@ namespace Game
 {
     public class SpaceshipsBattle
     {
-
         public class StartBattle
         {
             

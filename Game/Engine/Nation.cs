@@ -5,6 +5,7 @@ namespace Game.Engine
 {
     public class Nation
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public decimal Gold { get; set; }
@@ -13,7 +14,6 @@ namespace Game.Engine
         public int Aluminium { get; set; }
         public List<Nation> Alliances { get; set; }
         public List<Nation> Enemies { get; set; }
-        
         public List<Fleet> Fleets { get; set; }
         
         public void DeclareWar(Nation nation)
@@ -25,7 +25,6 @@ namespace Game.Engine
         {
             Alliances.Add(nation);
         }
-        
     }
     
 }

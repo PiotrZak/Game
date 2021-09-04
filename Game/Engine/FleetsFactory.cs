@@ -11,7 +11,6 @@ namespace Game.Engine
     {
         public static Fleet OrganizeFleet(List<Spaceship> spaceships, List<Player> management, Nation nation)
         {
-
             var strategyObjective = DefineObjective();
             var formation = DefineFormation(spaceships.Count);
             var general = PromoteGeneral(management);

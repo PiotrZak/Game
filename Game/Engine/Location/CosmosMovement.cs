@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Game.Engine
@@ -40,13 +41,14 @@ namespace Game.Engine
         private Map Right(Map map, Fleet unit, int fields)
         {
             var fleetId = unit.Id;
-            var actualFleetPosition = map.Location.Find(x => x.ActualFleetPosition.Id == fleetId);
+            var actualFleetPosition = map.Location
+                .Find(x => x.ActualFleetPosition.Id == fleetId);
+            
             if (actualFleetPosition == null) return map;
             
-            //right - is move on X or Y axis?
             var postulatedFleetPosition = new LocationCoordinate(actualFleetPosition.X, actualFleetPosition.Y+fields);
             
-            var isCollision = CheckForCollision(actualFleetPosition, postulatedFleetPosition);
+            var isCollision = CheckForCollision(map, unit, actualFleetPosition, postulatedFleetPosition);
 
             map = !isCollision ? 
                 UpdatePosition(map, actualFleetPosition, postulatedFleetPosition, unit) 
@@ -79,25 +81,51 @@ namespace Game.Engine
         }
 
         //todo - precise and refactor
-        public static bool CheckForCollision(LocationCoordinate actualFleetPosition, LocationCoordinate postulatedFleetPosition)
+        public static bool CheckForCollision(Map map, Fleet fleet, LocationCoordinate actualFleetPosition, LocationCoordinate postulatedFleetPosition)
         {
 
             var fromX = actualFleetPosition.X;
             var fromY = actualFleetPosition.Y;
             var toX = postulatedFleetPosition.X;
             var toY = postulatedFleetPosition.Y;
-        
-            //only right for now
             
-            // check if the fields allow another spaceships - if yes than start battle
             if (fromY + toY >= 10)
             {
+                //5 to 10 - then 5,6,7,8,9 
+                var fieldsVisited = Enumerable
+                    .Range(fromX, toX)
+                    .ToList();
+                
+                foreach (var field in fieldsVisited)
+                {
+                    var locationCoordinates = map.Location
+                        .FirstOrDefault(position => position.Y == fromY && position.X == field);
+
+                    //check actual field - todo - check from range - fieldsVisited
+                    if (locationCoordinates?.ActualFleetPosition != null)
+                    {
+                        var enemiesOfFleet = locationCoordinates.ActualFleetPosition.Nation.Enemies
+                            .Select(x => x.Id)
+                            .ToList();
+
+                        var alliesOfFleet = locationCoordinates.ActualFleetPosition.Nation.Alliances
+                            .Select(x => x.Id)
+                            .ToList();
+
+                        if (enemiesOfFleet.Contains(fleet.Id))
+                        {
+                            FleetBattle.Encounter(locationCoordinates.ActualFleetPosition, fleet);
+                        }
+
+                        if (alliesOfFleet.Contains(fleet.Id))
+                        {
+                            TradeLogic.FleetTrade.Trade(locationCoordinates.ActualFleetPosition, fleet);
+                        }
+                    }
+                }
                 return false;
             }
-        
-
             return true;
-
         }
         
     }

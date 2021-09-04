@@ -42,7 +42,7 @@ namespace Game.Engine
         
         public int Id { get; set; }
         public Nation Nation { get; set; }
-        public Player General { get; set; }
+        private Player General { get; set; }
         public List<Player> Captains { get; set; }
         public Formation Formation;
         public StrategyObjective StrategyObjective;

@@ -7,12 +7,12 @@ namespace Game
 {
     public class FleetBattle
     {
-        public decimal FindDifference(decimal nr1, decimal nr2)
+        public static decimal FindDifference(decimal nr1, decimal nr2)
         {
             return Math.Abs(nr1 - nr2);
         }
 
-        public void Encounter(Fleet a, Fleet b)
+        public static void Encounter(Fleet a, Fleet b)
         {
             var shipsA = (decimal)a.Spaceships.Count;
             var shipsB = (decimal)b.Spaceships.Count;
@@ -32,12 +32,12 @@ namespace Game
             //var battleOfUnit = new SpaceshipsBattle.StartBattle(a.Spaceships[0], b.Spaceships[0]);
         }
 
-        private decimal CalculateAccuracy(IEnumerable<Spaceship> spaceships)
+        private static decimal CalculateAccuracy(IEnumerable<Spaceship> spaceships)
         {
             return spaceships.Average(x => x.ShootAccuracy);
         }
 
-        private object CalculateProbabilityOfFight(decimal differenceInShips, decimal differenceInCrew)
+        private static object CalculateProbabilityOfFight(decimal differenceInShips, decimal differenceInCrew)
         {
             return differenceInCrew;
         }

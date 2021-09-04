@@ -41,6 +41,24 @@ namespace Game.Tests
         }
         
         [Fact]
+        public void Point28Is4And8()
+        {
+            var map = CosmosLocation.GenerateMap();
+
+            Assert.Equal(3, map.Location[28].X);
+            Assert.Equal(9, map.Location[28].Y);
+        }
+        
+        [Fact]
+        public void Point37Is4And8()
+        {
+            var map = CosmosLocation.GenerateMap();
+
+            Assert.Equal(4, map.Location[37].X);
+            Assert.Equal(8, map.Location[37].Y);
+        }
+        
+        [Fact]
         public void Point53Is1And10()
         {
             var map = CosmosLocation.GenerateMap();

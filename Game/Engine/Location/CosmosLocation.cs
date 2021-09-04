@@ -10,7 +10,7 @@ namespace Game.Engine
 
     public class LocationCoordinate
     {
-        public LocationCoordinate( int x, int y)
+        public LocationCoordinate(int x, int y)
         {
             X = x;
             Y = y;

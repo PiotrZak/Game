@@ -1,4 +1,3 @@
-using Game.Engine;
 using Game.Engine.Creatures;
 using Xunit;
 namespace Game.Tests
@@ -8,10 +7,9 @@ namespace Game.Tests
         // private Spaceship _a = new Spaceship();
         // private Spaceship _b = new Spaceship();
         
-        private Enemy _enemy = new Enemy(1, "Alien", 500, 200, 150, 20, 40);
-        private Enemy _weakerEnemy = new Enemy(1, "Zombie", 350, 200, 90, 2, 4);
-        
-        private Player _player = new Player(1, 200, 3, 3, "PlayerName", 400, 5, 10);
+        private readonly Enemy _enemy = new Enemy(1, "Alien", 500, 200, 150, 20, 40);
+        private readonly Enemy _weakerEnemy = new Enemy(1, "Zombie", 350, 200, 90, 2, 4);
+        private readonly Player _player = new Player(1, 200, 3, 3, "PlayerName", 400, 5, 10);
         
         
         // [Fact]

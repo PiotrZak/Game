@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Game.Engine;
 using Xunit;
 
@@ -8,10 +7,9 @@ namespace Game.Tests
     
     public class SpaceshipsFactory
     {
-        
-        List<int> ChaserCost = new List<int>() {4000, 2000, 1000};
-        List<int> ShuttleCost = new List<int>() {8000, 4000, 1800};
-        List<int> DestroyerCost = new List<int>() {18000, 12000, 4000};
+        private readonly List<int> _chaserCost = new List<int>() {4000, 2000, 1000};
+        private readonly List<int> _shuttleCost = new List<int>() {8000, 4000, 1800};
+        private readonly List<int> _destroyerCost = new List<int>() {18000, 12000, 4000};
         
         [Fact]
         public void IsMaterialsEnough()
@@ -23,13 +21,13 @@ namespace Game.Tests
             var actualState = new[] {availableSteel, availableAluminium, availableRocketPopulsion};
 
             var nationCanBuildChaser =
-                Engine.SpaceshipsFactory.IsDemandFullfill(ChaserCost, actualState);
+                Engine.SpaceshipsFactory.IsDemandFullfill(_chaserCost, actualState);
             
             var nationCanBuildCShuttle =
-                Engine.SpaceshipsFactory.IsDemandFullfill(ShuttleCost, actualState);
+                Engine.SpaceshipsFactory.IsDemandFullfill(_shuttleCost, actualState);
             
             var nationCanBuildDestroyer =
-                Engine.SpaceshipsFactory.IsDemandFullfill(DestroyerCost, actualState);
+                Engine.SpaceshipsFactory.IsDemandFullfill(_destroyerCost, actualState);
             
             Assert.True(nationCanBuildChaser);
             Assert.True(nationCanBuildCShuttle);
@@ -47,7 +45,7 @@ namespace Game.Tests
             var actualState = new[] {availableSteel, availableAluminium, availableRocketPopulsion};
 
             var quantityChasers =
-                Engine.SpaceshipsFactory.CalculatePossibleQuantityBuild(ChaserCost, actualState);
+                Engine.SpaceshipsFactory.CalculatePossibleQuantityBuild(_chaserCost, actualState);
 
             Assert.Equal(3, quantityChasers);
         }
@@ -63,7 +61,7 @@ namespace Game.Tests
             
             var actualState = new[] {availableSteel, availableAluminium, availableRocketPopulsion};
             var quantityShuttle =
-                Engine.SpaceshipsFactory.CalculatePossibleQuantityBuild(ShuttleCost, actualState);
+                Engine.SpaceshipsFactory.CalculatePossibleQuantityBuild(_shuttleCost, actualState);
 
             Assert.Equal(1, quantityShuttle);
         }
@@ -78,7 +76,7 @@ namespace Game.Tests
             var actualState = new[] {availableSteel, availableAluminium, availableRocketPopulsion};
             
             var quantityDestroyers =
-                Engine.SpaceshipsFactory.CalculatePossibleQuantityBuild(DestroyerCost, actualState);
+                Engine.SpaceshipsFactory.CalculatePossibleQuantityBuild(_destroyerCost, actualState);
             
             Assert.Equal(0, quantityDestroyers);
         }
@@ -104,7 +102,7 @@ namespace Game.Tests
             var actualState = new[] {availableSteel, availableAluminium, availableRocketPopulsion};
 
             var quantityChasers =
-                Engine.SpaceshipsFactory.CalculateLackOfDemands(ChaserCost, actualState);
+                Engine.SpaceshipsFactory.CalculateLackOfDemands(_chaserCost, actualState);
 
             Assert.Equal(2000, quantityChasers[0]);
             Assert.Equal(1000, quantityChasers[1]);
@@ -120,7 +118,7 @@ namespace Game.Tests
             var actualState = new[] {availableSteel, availableAluminium, availableRocketPopulsion};
 
             var quantityChasers =
-                Engine.SpaceshipsFactory.CalculateLackOfDemands(ChaserCost, actualState);
+                Engine.SpaceshipsFactory.CalculateLackOfDemands(_chaserCost, actualState);
 
             Assert.Equal(2200, quantityChasers[0]);
             Assert.Equal(1200, quantityChasers[1]);

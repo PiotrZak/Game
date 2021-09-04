@@ -13,8 +13,8 @@ namespace Game.Tests
         private readonly Player _player2 = new Player(1, 200, 167, 2, "Ziom2", 400, 5, 10);
         private Player _player3 = new Player(1, 200, 120, 3, "Ziom3", 400, 5, 10);
         private Player _player4 = new Player(1, 200, 145, 4, "Ziom4", 400, 5, 10);
-        private List<Player> _crew;
-        private List<Spaceship> _spaceships;
+        private List<Player> _crew = new List<Player>();
+        private List<Spaceship> _spaceships = new List<Spaceship>();
         
         private Spaceship _a = new Spaceship(new Nation(), SpaceshipType.Chaser, 500, 50, 2400, 80, 10, 500);
         private Spaceship _b = new Spaceship(new Nation(), SpaceshipType.Chaser, 500, 50, 2400, 80, 10, 500);

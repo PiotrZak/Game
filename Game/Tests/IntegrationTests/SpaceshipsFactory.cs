@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.Engine;
 using Xunit;
 
@@ -82,14 +84,61 @@ namespace Game.Tests
         }
         
         [Fact]
-        public void BuildSpaceship()
+        public void NationWithResourcesCanBuild100Chasers50ShuttlesAnd10Dreadnoughts()
+        {
+            var nation = new Nation()
+            {
+                Id = 1,
+                Name = "RandomNation",
+                Gold = 2,
+                Steel =  12000000,
+                Aluminium =  600000,
+                RocketPropulsion = 250000,
+            };
+            
+            var orders = new List<Engine.SpaceshipsFactory.SpaceshipOrder>
+            {
+                new()
+                {
+                    SpaceshipType = SpaceshipType.Chaser,
+                    Quantity = 100
+                },
+                new()
+                {
+                    SpaceshipType = SpaceshipType.Shuttle,
+                    Quantity = 50
+                },
+                new()
+                {
+                    SpaceshipType = SpaceshipType.Dreadnought,
+                    Quantity = 10
+                }
+            };
+
+            
+            var builtSpaceships = Engine.SpaceshipsFactory.BuildSpaceship(nation, orders);
+
+            Assert.Equal(160, builtSpaceships.Count);
+        }
+        
+        [Fact]
+        public void NationWithoutResourceCannotHaveSpaceships()
         {
             var nation = new Nation();
-            var spaceships = new List<Spaceship>();
+            var noSpaceships = new List<Spaceship>();
 
-            var test = Engine.SpaceshipsFactory.BuildSpaceship(nation, SpaceshipType.Chaser, 5);
+            var orders = new List<Engine.SpaceshipsFactory.SpaceshipOrder>
+            {
+                new()
+                {
+                    SpaceshipType = SpaceshipType.Chaser,
+                    Quantity = 1
+                }
+            };
+
+            var builtSpaceships = Engine.SpaceshipsFactory.BuildSpaceship(nation, orders);
                 
-            Assert.Equal(spaceships, test);
+            Assert.Equal(noSpaceships, builtSpaceships);
         }
         
         [Fact]

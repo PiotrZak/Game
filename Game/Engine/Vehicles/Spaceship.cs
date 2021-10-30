@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Game.Engine.Creatures;
     
@@ -7,6 +8,7 @@ namespace Game.Engine
     public class Spaceship
     {
         public Spaceship(
+            Guid id, 
             Nation nation, 
             SpaceshipType model, 
             int fuel, 
@@ -17,6 +19,7 @@ namespace Game.Engine
             int speed
         )
         {
+            Id = Id;
             Nation = nation;
             Model = model;
             Fuel = fuel;
@@ -26,7 +29,8 @@ namespace Game.Engine
             MaxCrewSize = maxCrewSize;
             Speed = speed;
         }
-
+        
+        public Guid Id { get; set; }
         public Nation Nation { get; set; }
         public SpaceshipType Model { get; set; }
         public int Fuel { get; set; }

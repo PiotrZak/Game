@@ -17,63 +17,64 @@ namespace Game.Engine
     public class SpaceshipsFactory
     {
 
-        public static List<Spaceship> BuildSpaceship(Nation builder, SpaceshipType typeToBuild, int quantity)
+        public class SpaceshipOrder
+        {
+            public SpaceshipType SpaceshipType { get; set; }
+            public int Quantity { get; set; }
+        }
+
+        public static List<Spaceship> BuildSpaceship(Nation builder, List<SpaceshipOrder> orders)
         {
 
-            var chaserCost = new[] {4000, 2000, 1000};
-            var shuttleCost = new[] {8000, 4000, 1800};
-            var destroyerCost = new[] {18000, 12000, 4000};
-            var dreadnoughtCost = new[] {40000, 20000, 6000};
+            var chaserCost = new[] { 4000, 2000, 1000 };
+            var shuttleCost = new[] { 8000, 4000, 1800 };
+            var destroyerCost = new[] { 18000, 12000, 4000 };
+            var dreadnoughtCost = new[] { 50000, 20000, 6000 };
 
             var spaceShips = new List<Spaceship>();
 
 
-            foreach (SpaceshipType spaceshipType in SpaceshipType)
+            foreach (var order in orders)
             {
-                if (typeToBuild == spaceshipType)
+                var availableSteel = builder.Steel;
+                var availableAluminium = builder.Aluminium;
+                var availableRocketPopulsion = builder.RocketPropulsion;
+
+                var actualState = new[] { availableSteel, availableAluminium, availableRocketPopulsion };
+                var demandsOfMaterials = order.SpaceshipType switch
                 {
-                    var availableSteel = builder.Steel;
-                    var availableAluminium = builder.Aluminium;
-                    var availableRocketPopulsion = builder.RocketPropulsion;
+                    Engine.SpaceshipType.Chaser => chaserCost.Select(x => x * order.Quantity).ToList(),
+                    Engine.SpaceshipType.Shuttle => shuttleCost.Select(x => x * order.Quantity).ToList(),
+                    Engine.SpaceshipType.Destroyer => destroyerCost.Select(x => x * order.Quantity).ToList(),
+                    Engine.SpaceshipType.Dreadnought => dreadnoughtCost.Select(x => x * order.Quantity).ToList(),
+                    _ => throw new ArgumentOutOfRangeException(nameof(order.SpaceshipType), order.SpaceshipType, null)
+                };
+
+                var isPossible = IsDemandFullfill(demandsOfMaterials, actualState);
+                if (isPossible)
+                {
+                    var spaceshipsRanges = Enumerable.Range(0, order.Quantity).Select(x => new Spaceship(Guid.NewGuid(), builder, order.SpaceshipType, 100, 20, 1200, 60, 5, 120)).ToList();
+                    builder.Steel -= demandsOfMaterials[0];
+                    builder.Aluminium -= demandsOfMaterials[1];
+                    builder.RocketPropulsion -= demandsOfMaterials[2];
+                    spaceShips.AddRange(spaceshipsRanges);
                     
-                    var actualState = new[] {availableSteel, availableAluminium, availableRocketPopulsion};
-                    var demandsOfMaterials = typeToBuild switch
-                    {
-                        Engine.SpaceshipType.Chaser => chaserCost.Select(x => x * quantity).ToList(),
-                        Engine.SpaceshipType.Shuttle => shuttleCost.Select(x => x * quantity).ToList(),
-                        Engine.SpaceshipType.Destroyer => destroyerCost.Select(x => x * quantity).ToList(),
-                        Engine.SpaceshipType.Dreadnought => dreadnoughtCost.Select(x => x * quantity).ToList(),
-                        _ => throw new ArgumentOutOfRangeException(nameof(typeToBuild), typeToBuild, null)
-                    };
-                    
-                    var isPossible = IsDemandFullfill(demandsOfMaterials, actualState);
-                    if (isPossible)
-                    {
-                        for(var i = 0; i < quantity; i++)
-                        {
-                            var chaser = new Spaceship(builder, spaceshipType, 100, 20 ,1200, 60, 5, 120 );   
-                            spaceShips.Add(chaser);
-                        }
-                    }
-                    else
-                    {
-                        CalculatePossibleQuantityBuild(demandsOfMaterials, actualState);
-                        //produce less or not?
-                    }
                 }
                 else
                 {
-                    break;
+                    var resourcePossibility = CalculatePossibleQuantityBuild(demandsOfMaterials, actualState);
                 }
             }
+
             return spaceShips;
         }
+        
 
         public static IEnumerable SpaceshipType { get; set; }
 
         public static int CalculatePossibleQuantityBuild(List<int> demandsOfMaterials, int[] actualState)
         {
-            int possibleQuantity = 0;
+            var possibleQuantity = 0;
             do
             {
                 var oneUnit = IsDemandFullfill(demandsOfMaterials, actualState);

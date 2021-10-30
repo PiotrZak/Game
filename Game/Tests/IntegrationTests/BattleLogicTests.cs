@@ -1,5 +1,9 @@
+using System;
 using Game.Engine.Creatures;
+using NUnit.Framework;
 using Xunit;
+using Assert = Xunit.Assert;
+
 namespace Game.Tests
 {
     public class BattleLogicTests
@@ -29,8 +33,8 @@ namespace Game.Tests
         [Fact]
         public void PlayerWillLoseWithEnemy()
         {
-            var isDead = BattleLogic.StartFight(_enemy, _player);
-            Assert.False(isDead);
+            var ex = Assert.Throws<ArgumentException>(() => BattleLogic.StartFight(_enemy, _player));
+            Assert.Equal("Game not loaded!", ex.Message);
         }
     
         [Fact]

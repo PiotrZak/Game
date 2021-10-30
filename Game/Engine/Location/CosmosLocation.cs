@@ -1,9 +1,7 @@
 #nullable enable
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using Game.Engine;
 
 namespace Game.Engine
 {
@@ -42,19 +40,19 @@ namespace Game.Engine
     {
         public static Map GenerateMap()
         {
-            var A1 = new Map(new List<LocationCoordinate>());
+            var a1 = new Map(new List<LocationCoordinate>());
             
             for(var i = 1; i <= 10; i++)
             {
                 for(var j = 1; j <= 10; j++)
                 {
                     var point = new LocationCoordinate(i, j);
-                    A1.Location.Add(point);
+                    a1.Location.Add(point);
                 }
                 Console.WriteLine();
             }
 
-            return A1;
+            return a1;
         }
     }
 

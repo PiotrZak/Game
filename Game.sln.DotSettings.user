@@ -1,6 +1,11 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3ce1ae08_002Df9ad_002D4b62_002Db50e_002D8168f972d7c6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="AlienHealthAfter50HitIs450" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=036fcac1_002D408a_002D4dd2_002Db040_002D644c54673510/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;Game&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/admin/Desktop/CodeBases/Game/Game/Game" Presentation="&amp;lt;Game&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1bfbcb85_002Dec0d_002D4b99_002Db09f_002Da09c8020e13c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="NationWithResourcesCanBuild100Chasers50ShuttlesAnd10Dreadnoughts" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::BA295A24-9EC3-4FCC-83FF-9A5CBC8288E5::.NETCoreApp,Version=v5.0::Game.Tests.UnitTests.HitsTests.AlienHealthAfter50HitIs450&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::BA295A24-9EC3-4FCC-83FF-9A5CBC8288E5::net5.0::Game.Tests.SpaceshipsFactory.NationWithResourcesCanBuild100Chasers50ShuttlesAnd10Dreadnoughts&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+&lt;/SessionState&gt;</s:String>
+	
+	</wpf:ResourceDictionary>

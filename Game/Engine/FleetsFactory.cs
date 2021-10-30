@@ -22,22 +22,12 @@ namespace Game.Engine
 
         private static Formation DefineFormation(int spaceshipsCount)
         {
-            if (spaceshipsCount < 5)
+            return spaceshipsCount switch
             {
-                return Formation.Corps;
-            }
-
-            if (spaceshipsCount < 10)
-            {
-                return Formation.Brigade;
-            }
-
-            if (spaceshipsCount < 15)
-            {
-                return Formation.Division;
-            }
-
-            return Formation.Unknown;
+                < 5 => Formation.Corps,
+                < 10 => Formation.Brigade,
+                _ => spaceshipsCount < 15 ? Formation.Division : Formation.Unknown
+            };
         }
 
         private static Player PromoteGeneral(List<Player> management)

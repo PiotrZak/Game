@@ -104,23 +104,34 @@ namespace Game.Engine
                     //check actual field - todo - check from range - fieldsVisited
                     if (locationCoordinates?.ActualFleetPosition != null)
                     {
-                        var enemiesOfFleet = locationCoordinates.ActualFleetPosition.Nation.Enemies
-                            .Select(x => x.Id)
-                            .ToList();
 
-                        var alliesOfFleet = locationCoordinates.ActualFleetPosition.Nation.Alliances
-                            .Select(x => x.Id)
-                            .ToList();
-
-                        if (enemiesOfFleet.Contains(fleet.Id))
+                        if (locationCoordinates.ActualFleetPosition.Nation.Enemies != null)
                         {
-                            FleetBattle.Encounter(locationCoordinates.ActualFleetPosition, fleet);
+
+                            var enemiesOfFleet = locationCoordinates.ActualFleetPosition.Nation.Enemies
+                                .Select(x => x.Id)
+                                .ToList();
+
+                            if (enemiesOfFleet.Contains(fleet.Id))
+                            {
+                                FleetBattle.Encounter(locationCoordinates.ActualFleetPosition, fleet);
+                            }
                         }
 
-                        if (alliesOfFleet.Contains(fleet.Id))
+                        if (locationCoordinates.ActualFleetPosition.Nation.Alliances != null)
                         {
-                            TradeLogic.FleetTrade.Trade(locationCoordinates.ActualFleetPosition, fleet);
+                            var alliesOfFleet = locationCoordinates.ActualFleetPosition.Nation.Alliances
+                                .Select(x => x.Id)
+                                .ToList();
+
+                            if (alliesOfFleet.Contains(fleet.Id))
+                            {
+                                TradeLogic.FleetTrade.Trade(locationCoordinates.ActualFleetPosition, fleet);
+                            }
                         }
+                        
+                        //neutral fleet meet
+                        return true;
                     }
                 }
                 return false;

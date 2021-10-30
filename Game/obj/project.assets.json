@@ -3928,11 +3928,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/admin/Desktop/Game/Game/Game/Game.csproj",
+      "projectUniqueName": "/Users/admin/Desktop/CodeBases/Game/Game/Game/Game.csproj",
       "projectName": "Game",
-      "projectPath": "/Users/admin/Desktop/Game/Game/Game/Game.csproj",
+      "projectPath": "/Users/admin/Desktop/CodeBases/Game/Game/Game/Game.csproj",
       "packagesPath": "/Users/admin/.nuget/packages/",
-      "outputPath": "/Users/admin/Desktop/Game/Game/Game/obj/",
+      "outputPath": "/Users/admin/Desktop/CodeBases/Game/Game/Game/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -3990,7 +3990,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.102/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.100-rc.2.21505.57/RuntimeIdentifierGraph.json"
       }
     }
   }
